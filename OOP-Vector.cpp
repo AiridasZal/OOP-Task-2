@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <vector>
+#include <ctime>
 
 using std::cout;
 using std::cin;
@@ -14,20 +15,27 @@ struct node
     std::vector<int> paz;
     int egz=0;
     double rezult=0;
+    bool gen=0;
     node* next;
 };
 
 void duom(node *&t)
 {
     int temp=1;
+    srand((unsigned) time(NULL));
     cout << "Iveskite varda: ";
     cin >> t->vardas;
     cout << "Iveskite pavarde: ";
     cin >> t->pavarde;
     t->paz.reserve(500);
+    Rand:
+    cout << "Ar mokinio balus generuoti atsitiktinai? Iveskite 0, jeigu Ne arba 1, jeigu Taip: ";
+    cin >> t->gen;
+    if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Rand; }
+    if(!t->gen) {
     while(temp!=0)
     {
-PAZ1:
+            PAZ1:
             cout << "Iveskite " << t->paz.size()+1 << " -a(-i) pazymi (nuo 1 iki 10). Iveskite 0, jei norite stabdyti ivedima: ";
             cin >> temp;
             if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto PAZ1; }
@@ -37,12 +45,25 @@ PAZ1:
                 t->paz.push_back(temp);
         }
     }
-PAZ2:
+    PAZ2:
     cout << "Veskite egzamino iverti (nuo 1 iki 10): ";
     cin >> t->egz;
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto PAZ2; }
     if(!((t->egz>=1)&&(t->egz<=10))) goto PAZ2;
     t->paz.shrink_to_fit();
+    }
+    else if(t->gen)
+    {
+        Gen:
+        cout << "Kiek pazymiu sugeneruoti mokiniui? (Nuo 0 iki 500): ";
+        cin >> temp;
+        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Gen; }
+        if(!((t->egz>=0)&&(t->egz<=500))) goto Gen;
+        t->paz.resize(temp);
+        for(int i=0; i<t->paz.size(); i++)
+            t->paz.at(i)=rand()%11;
+        t->egz=rand()%11;
+    }
 }
 
 void input(node *&root)
@@ -115,7 +136,7 @@ int main()
     int asmuo;
     input(root);
 PRIDEJIMAS:
-        cout << "Jei norite prideti dar viena asmeni iveskite 1: ";
+        cout << "Jei norite prideti dar viena asmeni iveskite 1 arba iveskite 0, jei norite testi: ";
         cin >> asmuo;
         if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto OUTPUT; }
         if(asmuo==1) { input(root); goto PRIDEJIMAS; }
