@@ -10,12 +10,33 @@ using std::string;
 struct node
 {
     string vardas="", pavarde="";
-    int paz[3]= {0}, egz=0;
+    int paz[50]= {0}, egz=0, pazsk=0;
     double rezult=0;
     node* next;
 };
 
-void input(node *&root, int n)
+void duom(node *&t)
+{
+    int temp=1;
+    cout << "Iveskite varda: ";
+    cin >> t->vardas;
+    cout << "Iveskite pavarde: ";
+    cin >> t->pavarde;
+    while(temp!=0)
+    {
+        cout << "Iveskite " << t->pazsk+1 << " -a(-i) pazymi (arba 0 jei norite stabdyti ivedima): ";
+        cin >> temp;
+        if(temp==0) break;
+        else{
+            t->paz[t->pazsk]=temp;
+            t->pazsk++;
+        }
+    }
+    cout << "Veskite egzamino iverti: ";
+    cin >> t->egz;
+}
+
+void input(node *&root)
 {
     if (root)
     {
@@ -23,63 +44,44 @@ void input(node *&root, int n)
         while (t->next) t = t->next;
         t->next = new node;
         t = t->next;
-        cout << "Iveskite varda: ";
-        cin >> t->vardas;
-        cout << "Iveskite pavarde: ";
-        cin >> t->pavarde;
-        for(int i=0; i<n; i++)
-        {
-            cout << "Iveskite " << i+1 << " -a(-i) pazymi: ";
-            cin >> t->paz[i];
-        }
-        cout << "Veskite egzamino iverti: ";
-        cin >> t->egz;
+        duom(t);
         t->next = NULL;
     }
     else
     {
         root = new node;
-        cout << "Iveskite varda: ";
-        cin >> root->vardas;
-        cout << "Iveskite pavarde: ";
-        cin >> root->pavarde;
-        for(int i=0; i<n; i++)
-        {
-            cout << "Iveskite " << i+1 << " -a(-i) pazymi: ";
-            cin >> root->paz[i];
-        }
-        cout << "Veskite egzamino iverti: ";
-        cin >> root->egz;
+        duom(root);
         root->next = NULL;
     }
 }
 
-void vidurkis(node *&root, int n)
+void vidurkis(node *&root)
 {
     double temp=0;
     node *t=root;
     while(t!=NULL)
     {
         temp=0;
-        for(int i=0; i<n; i++) temp+=t->paz[i];
-        t->rezult=0.4*(temp/n)+0.6*t->egz;
+        for(int i=0; i<t->pazsk; i++) temp+=t->paz[i];
+        if(t->pazsk!=0)
+        t->rezult=0.4*(temp/t->pazsk)+0.6*t->egz;
+        else t->rezult=0.6*t->egz;
         t=t->next;
     }
 }
 
-void median(node *&root, int n)
+void median(node *&root)
 {
     double temp=0;
     node *t=root;
     while(t!=NULL)
     {
         temp=0;
-        std::sort(t->paz, t->paz+n);
-        if (n % 2 != 0)
-            temp=(double)t->paz[n/2];
-        else temp=(double)(t->paz[(n-1)/2]+t->paz[n/2])/2.0;
+        std::sort(t->paz, t->paz+t->pazsk);
+        if (t->pazsk % 2 != 0)
+            temp=(double)t->paz[t->pazsk/2];
+        else temp=(double)(t->paz[(t->pazsk-1)/2]+t->paz[t->pazsk/2])/2.0;
         t->rezult=0.4*temp+0.6*t->egz;
-        cout << "TEST: " << t->rezult << std::endl;
         t=t->next;
     }
 }
@@ -100,17 +102,20 @@ void output(node *root, int choice)
 int main()
 {
     node* root = NULL;
-    int num;
     int choice;
-    int n=3;
-    cout << "Kiek asmenu skaiciuosit? ";
-    cin >> num;
-    for(int i=0; i<num; i++) input(root, n);
+    int asmuo;
+    input(root);
+    do{
+        cout << "Jei norite prideti dar viena asmeni iveskite 1, ivedus kita skaiciu pereinama prie balo skaiciavimo: ";
+        cin >> asmuo;
+        if(asmuo==1) input (root);
+        else cin.ignore();
+    } while(asmuo==1);
 OUTPUT:
     cout << "Galutini bala apaskaiciuoti naudojant namu darbu vidurki ar mediana? (Atitinkamai 0 arba 1): ";
     cin >> choice;
-    if(choice == 0) vidurkis(root, n);
-    if(choice == 1) median(root, n);
+    if(choice == 0) vidurkis(root);
+    if(choice == 1) median(root);
     if(!((choice>=0)&&(choice<=1)))
     {
         goto OUTPUT;
