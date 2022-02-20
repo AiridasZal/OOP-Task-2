@@ -58,7 +58,7 @@ void duom(node *&t)
         cout << "Kiek pazymiu sugeneruoti mokiniui? (Nuo 0 iki 500): ";
         cin >> temp;
         if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Gen; }
-        if(!((t->egz>=0)&&(t->egz<=500))) goto Gen;
+        if(!((temp>=0)&&(temp<=500))) goto Gen;
         t->paz.resize(temp);
         for(int i=0; i<t->paz.size(); i++)
             t->paz.at(i)=rand()%11;
