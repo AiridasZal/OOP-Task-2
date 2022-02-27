@@ -36,6 +36,7 @@ void rastiMediana(vector<student> &A, int i);
 void rastiVidurki(vector<student> &A, int i);
 void header();
 void spausdinimas(vector<student> &A, int i);
+void skaitymas (vector<student> &A, int &num, std::ifstream& in);
 
 void ivedimas(vector<student> &A, int i)
 {
@@ -129,6 +130,38 @@ void rikiavimas(vector<student> &A, int &num)
             std::swap(A[i], A[j]);
 }
 
+void skaitymas (vector<student> &A, int &num, std::ifstream& in)
+{
+    int j=0, egz=0;
+    string temp, eil, vardas, pavarde;
+    while(std::getline(in, eil))
+    {
+        A.push_back(student());
+        std::istringstream line(eil);
+        line >> vardas >> pavarde;
+        A[num].vardas=vardas;
+        A[num].pavarde=pavarde;
+        num++;
+
+        while(line >> temp)
+        {
+            int paz = std::stoi(temp);
+            if(paz>=0 && paz<=10)
+            {
+                A[j].nd.push_back(paz);
+                A[j].sum+=paz;
+                A[j].sk++;
+            }
+        }
+    line.end;
+    A[j].egz=A[j].nd[A[j].sk-1];
+    A[j].nd[A[j].sk-1]=0;
+    A[j].sum-=A[j].egz;
+    A[j].sk--;
+    j++;
+    }
+}
+
 
 int main()
 {
@@ -168,15 +201,28 @@ Ivestis:
         if(asmuo==1) goto Generavimas;
         if(!((asmuo>=0)&&(asmuo<=1))) goto Pridejimas;
     }
-    header();
     for(int i=0; i<num; i++)
     {
+        if(i==0) header();
         rikiavimas(A, num);
         spausdinimas(A, i);
     }
     if(inp==1)
     {
-
+        num=0;
+        std::ifstream in("kursiokai.txt");
+        in.ignore(1024, '\n');
+        skaitymas(A, num, in);
+        for (int i=0; i<num; i++)
+        {
+            rastiMediana(A, i);
+            rastiVidurki(A, i);
+            if (i==0)
+                header();
+//            rikiavimas(A, num);
+            spausdinimas (A, i);
+        }
+        in.close();
     }
     if(!((inp>=0)&&(inp<=1))) goto Ivestis;
     return 0;
