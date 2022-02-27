@@ -48,6 +48,17 @@ Ivestis:
     {
         num=0;
         std::ifstream in("kursiokai.txt");
+        try
+        {
+            if(!in.good())
+            {
+            throw "Failas nerastas...";
+            }
+        }
+        catch (const char* msg)
+        {
+            cout <<msg<<endl;
+        }
         in.ignore(1024, '\n');
         skaitymas(A, num, in);
         for (int i=0; i<num; i++)
