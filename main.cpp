@@ -33,6 +33,8 @@ void ivedimas(vector<student> &A, int i);
 void pazymiai(vector<student> &A, int i);
 void rastiMediana(vector<student> &A, int i);
 void rastiVidurki(vector<student> &A, int i);
+void header();
+void spausdinimas(vector<student> &A, int i);
 
 void ivedimas(vector<student> &A, int i)
 {
@@ -79,20 +81,34 @@ void rastiVidurki(vector<student> &A, int i)
     A[i].vid=(double)A[i].sum/(double)A[i].sk;
 }
 
+void header()
+{
+    cout << "---------------------------------------------------------------------------------" << endl;
+    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
+    cout << "---------------------------------------------------------------------------------" << endl;
+}
+
+void spausdinimas(vector<student> &A, int i)
+{
+    A[i].galV=0.4*A[i].vid+0.6*A[i].egz;
+    A[i].galM=0.4*A[i].med+0.6*A[i].egz;
+    cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+}
+
 int main()
 {
     vector<student> A;
     int num=0;
-    int inp, gen;
+    int inp, gen,asmuo;
 Ivestis:
     cout << "Ivesti duomenis ranka (0) ar skaityti is failo (1): ";
     cin >> inp;
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Ivestis; }
     if(inp==0)
     {
+        Generavimas:
         A.push_back(student());
         ivedimas(A, num);
-        Generavimas:
         cout << "Pazymius ivesti ranka - (0). Pazymius generuoti atsitiktinai - (1): ";
         cin >> gen;
         if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Generavimas; }
@@ -110,7 +126,17 @@ Ivestis:
         }
         if(!((gen>=0)&&(gen<=1))) goto Generavimas;
         num++;
-
+        Pridejimas:
+        cout << "Jei norite prideti dar viena asmeni iveskite 1. Jei norite testi, iveskite 0: ";
+        cin >> asmuo;
+        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Pridejimas; }
+        if(asmuo==1) goto Generavimas;
+        if(!((asmuo>=0)&&(asmuo<=1))) goto Pridejimas;
+    }
+    header();
+    for(int i=0; i<num; i++)
+    {
+        spausdinimas(A, i);
     }
     if(inp==1)
     {
