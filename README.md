@@ -25,3 +25,7 @@ arba
 1. Atsisakyta tiesinio sąrašo (angl. linked list) naudojimo, pilnai realizuotas struktūrų vektoriuose naudojimas.
 2. Pridėta galimybė įvesti duomenis iš failo.
 3. Rezultatai rūšiuojami pagal pavardę.
+
+## V0.3 Atnaujinimai:
+1. Funkcijų antraštės perkeltos į failą **functions.h**, o pačios funkcijos į **functions.cpp**.
+2. Implementuotas išimčių valdymas (angl. Exception Handling), kai programa neranda failo "kursiokai.txt".
