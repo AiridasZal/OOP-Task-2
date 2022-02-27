@@ -16,3 +16,12 @@ arba
 
 4. Mokinių kiekis ir įvedamų pažymių skaičius yra dinamiškas dydis.
 5. Galimybė atsitiktinai generuoti mokinio namų darbų ir egzamino balus.
+
+## V0.1.1 Papildymas:
+1. Programa papildyta atsitiktinių pažymių generavimu masyvų implementacijoje.
+2. Pataisytas klaidingų įvedimų numatymas.
+
+## V0.2 Atnaujinimai:
+1. Atsisakyta tiesinio sąrašo (angl. linked list) naudojimo, pilnai realizuotas struktūrų vektoriuose naudojimas.
+2. Pridėta galimybė įvesti duomenis iš failo.
+3. Rezultatai rūšiuojami pagal pavardę.
