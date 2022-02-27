@@ -8,6 +8,7 @@
 using std::cout;
 using std::cin;
 using std::string;
+using std::endl;
 
 struct node
 {
@@ -29,27 +30,27 @@ void duom(node *&t)
     cin >> t->pavarde;
     t->paz.reserve(500);
     Rand:
-    cout << "Ar mokinio balus generuoti atsitiktinai? Iveskite 0, jeigu Ne arba 1, jeigu Taip: ";
+    cout << "Ar mokinio balus generuoti atsitiktinai? (0 - Ne, 1 - Taip): ";
     cin >> t->gen;
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Rand; }
     if(!t->gen) {
-    while(temp!=0)
+    while(temp!=-1)
     {
             PAZ1:
-            cout << "Iveskite " << t->paz.size()+1 << " -a(-i) pazymi (nuo 1 iki 10). Iveskite 0, jei norite stabdyti ivedima: ";
+            cout << "Iveskite " << t->paz.size()+1 << " -a(-i) pazymi (nuo 0 iki 10). Iveskite -1, jei norite stabdyti ivedima: ";
             cin >> temp;
             if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto PAZ1; }
-            if(!((temp>=0)&&(temp<=10))) goto PAZ1;
-            if(temp==0) break;
+            if(temp==-1) break;
+            if(!((temp>=-1)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10" << endl; goto PAZ1;}
             else{
                 t->paz.push_back(temp);
         }
     }
     PAZ2:
-    cout << "Veskite egzamino iverti (nuo 1 iki 10): ";
+    cout << "Veskite egzamino iverti (nuo 0 iki 10): ";
     cin >> t->egz;
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto PAZ2; }
-    if(!((t->egz>=1)&&(t->egz<=10))) goto PAZ2;
+    if(!((t->egz>=0)&&(t->egz<=10))) {cout << "Reiksme turi buti tarp 0 ir 10" << endl; goto PAZ2;}
     t->paz.shrink_to_fit();
     }
     else if(t->gen)
@@ -119,12 +120,12 @@ void median(node *&root)
 void output(node *root, int choice)
 {
     cout << std::setw(20) << std::left << "Vardas" << std::setw(20) << std::left << "Pavarde";
-    if(choice==0) cout << std::setw(5) << std::left << "Galutinis (Vid.)" << std::endl;
-    if(choice==1) cout << std::setw(5) << std::left << "Galutinis (Med.)" << std::endl;
-    cout << "----------------------------------------------------------------------------" << std::endl;
+    if(choice==0) cout << std::setw(5) << std::left << "Galutinis (Vid.)" << endl;
+    if(choice==1) cout << std::setw(5) << std::left << "Galutinis (Med.)" << endl;
+    cout << "----------------------------------------------------------------------------" << endl;
     while(root!=NULL)
     {
-        cout << std::setw(20) << std::left << root->vardas << std::setw(20) << std::left << root->pavarde << std::setw(5) << std::left << std::fixed << std::setprecision(2) << root->rezult << std::endl;
+        cout << std::setw(20) << std::left << root->vardas << std::setw(20) << std::left << root->pavarde << std::setw(5) << std::left << std::fixed << std::setprecision(2) << root->rezult << endl;
         root=root->next;
     }
 }
@@ -136,12 +137,12 @@ int main()
     int asmuo;
     input(root);
 PRIDEJIMAS:
-        cout << "Jei norite prideti dar viena asmeni iveskite 1 arba iveskite 0, jei norite testi: ";
+        cout << "Jei norite prideti dar viena asmeni iveskite 1. Jei norite testi, iveskite 0: ";
         cin >> asmuo;
-        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto OUTPUT; }
+        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto PRIDEJIMAS; }
         if(asmuo==1) { input(root); goto PRIDEJIMAS; }
 OUTPUT:
-    cout << "Galutini bala apaskaiciuoti naudojant namu darbu vidurki ar mediana? (Atitinkamai 0 arba 1): ";
+    cout << "Galutini bala apaskaiciuoti naudojant namu darbu vidurki ar mediana? (0 - Vidurki, 1 - Mediana): ";
     cin >> choice;
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto OUTPUT; }
     if(choice == 0) vidurkis(root);
