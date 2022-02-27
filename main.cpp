@@ -31,6 +31,7 @@ struct student
 
 void ivedimas(vector<student> &A, int i);
 void pazymiai(vector<student> &A, int i);
+void generuoti(vector<student> &A, int i);
 void rastiMediana(vector<student> &A, int i);
 void rastiVidurki(vector<student> &A, int i);
 void header();
@@ -66,6 +67,31 @@ void pazymiai(vector<student> &A, int i)
         if(!((temp>=0)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10\n"; goto egzp;}
         else A[i].egz=temp;
 }
+
+void generuoti(vector<student> &A, int i)
+{
+    int kiek;
+    int temp;
+Genopt:
+    cout << "Kiek pazymiu sugeneruoti mokiniui? (Nuo 0 iki 500): ";
+    cin >> kiek;
+    if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Genopt; }
+    if(!((kiek>=0)&&(kiek<=500))) {cout << "Reiksme turi buti tarp 0 ir 500\n"; goto Genopt;}
+    srand((unsigned) time(NULL));
+    A[i].sk=kiek;
+    cout << "Sugeneruoti pazymiai:\n";
+    for(int j=0; j<kiek; j++)
+    {
+        temp=rand()%11;
+        A[i].nd.push_back(temp);
+        A[i].sum+=temp;
+        cout << temp << " ";
+    }
+    cout << endl;
+    temp=rand()%11;
+    A[i].egz=temp;
+}
+
 void rastiMediana(vector<student> &A, int i)
 {
     sort(A[i].nd.begin(), A[i].nd.end());
@@ -95,6 +121,15 @@ void spausdinimas(vector<student> &A, int i)
     cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
 }
 
+void rikiavimas(vector<student> &A, int &num)
+{
+    for(int i=0; i<num-1; i++)
+        for(int j=i+1; j<num; j++)
+        if(A[i].pavarde> A[j].pavarde)
+            std::swap(A[i], A[j]);
+}
+
+
 int main()
 {
     vector<student> A;
@@ -120,7 +155,7 @@ Ivestis:
         }
         if(gen==1)
         {
-//            generuoti(A, num);
+            generuoti(A, num);
             rastiMediana(A, num);
             rastiVidurki(A, num);
         }
@@ -136,6 +171,7 @@ Ivestis:
     header();
     for(int i=0; i<num; i++)
     {
+        rikiavimas(A, num);
         spausdinimas(A, i);
     }
     if(inp==1)
