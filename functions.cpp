@@ -1,5 +1,7 @@
 #include "functions.h"
 
+std::ofstream out("Rezultatai.txt");
+
 void ivedimas(vector<student> &A, int i)
 {
     cout << "Iveskite studento varda: "; cin >> A[i].vardas;
@@ -72,16 +74,16 @@ void rastiVidurki(vector<student> &A, int i)
 
 void header()
 {
-    cout << "---------------------------------------------------------------------------------" << endl;
-    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
-    cout << "---------------------------------------------------------------------------------" << endl;
+    out << "---------------------------------------------------------------------------------" << endl;
+    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
+    out << "---------------------------------------------------------------------------------" << endl;
 }
 
 void spausdinimas(vector<student> &A, int i)
 {
     A[i].galV=0.4*A[i].vid+0.6*A[i].egz;
     A[i].galM=0.4*A[i].med+0.6*A[i].egz;
-    cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+    out << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
 }
 
 void rikiavimas(vector<student> &A, int &num)
