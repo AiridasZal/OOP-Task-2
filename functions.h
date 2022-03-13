@@ -8,6 +8,9 @@
 #include <vector>
 #include <ctime>
 #include <fstream>
+#include <chrono>
+#include <sstream>
+#include <random>
 
 using std::cout;
 using std::cin;
@@ -41,5 +44,6 @@ void header();
 void spausdinimas(vector<student> &A, int i);
 void rikiavimas(vector<student> &A, int &num);
 void skaitymas (vector<student> &A, int &num, std::ifstream& in);
+void filegen(int i, int num, int kiek);
 
 #endif

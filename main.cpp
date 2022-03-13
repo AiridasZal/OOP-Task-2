@@ -46,31 +46,54 @@ Ivestis:
     }
     if(inp==1)
     {
-        num=0;
-        std::ifstream in("kursiokai.txt");
-        try
+        Genskai:
+        cout << "Skaityti duomenis is 'kursiokai.txt' (0) ar generuoti naujus failus (1): ";
+        cin >> inp;
+        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Genskai; }
+        if(!((inp>=0)&&(inp<=1))) {cout << "Negalima reiksme, bandykite dar karta\n"; goto Genskai;}
+        if(inp==0)
         {
-            if(!in.good())
+            num=0;
+            std::ifstream in("kursiokai.txt");
+            try
             {
-            throw "Failas nerastas...";
+                if(!in.good())
+                {
+                throw "Failas nerastas...";
+                }
+            }
+            catch (const char* msg)
+            {
+                cout <<msg<<endl;
+            }
+            in.ignore(1024, '\n');
+            skaitymas(A, num, in);
+            for (int i=0; i<num; i++)
+            {
+                rastiMediana(A, i);
+                rastiVidurki(A, i);
+                if (i==0)
+                    header();
+    //            rikiavimas(A, num);
+                spausdinimas (A, i);
+            }
+            in.close();
+        }
+        if(inp==1)
+        {
+            int num=100;
+            int kiek=0;
+            Pazkiek:
+            cout << "Po kiek pazymiu sugeneruoti kiekvienam studentui (1-15): ";
+            cin >> kiek;
+            if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Pazkiek;}
+            if(!((kiek>=1)&&(kiek<=15))) {cout << "Ivesta reiksme neatitinka intervalo nuo 1 iki 15...\n"; goto Pazkiek;}
+            for(int i=0; i<5; i++)
+            {
+                num*=10;
+                filegen(i, num, kiek);
             }
         }
-        catch (const char* msg)
-        {
-            cout <<msg<<endl;
-        }
-        in.ignore(1024, '\n');
-        skaitymas(A, num, in);
-        for (int i=0; i<num; i++)
-        {
-            rastiMediana(A, i);
-            rastiVidurki(A, i);
-            if (i==0)
-                header();
-//            rikiavimas(A, num);
-            spausdinimas (A, i);
-        }
-        in.close();
     }
     if(!((inp>=0)&&(inp<=1))) goto Ivestis;
     return 0;

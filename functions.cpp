@@ -125,3 +125,30 @@ void skaitymas (vector<student> &A, int &num, std::ifstream& in)
     j++;
     }
 }
+
+void filegen(int i, int num, int kiek)
+{
+    string ofname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
+
+    int temp;
+
+    std::ofstream out(ofname[i]);
+    std::mt19937 mt(static_cast<long unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count()));
+    std::uniform_int_distribution <int> dist(1, 10);
+
+    std::stringstream buffer;
+
+    for(int i=0; i<num; i++)
+    {
+        buffer << "Vardas" << i+1 << " " << "Pavarde" << i+1;
+
+        for(int j=0; j<kiek; j++)
+        {
+            temp=dist(mt);
+            buffer << " " << temp;
+        }
+        buffer << endl;
+    }
+    out << buffer.str();
+    out.close();
+}
