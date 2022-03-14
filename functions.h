@@ -45,5 +45,6 @@ void spausdinimas(vector<student> &A, int i);
 void rikiavimas(vector<student> &A, int &num);
 void skaitymas (vector<student> &A, int &num, std::ifstream& in);
 void filegen(int i, int num, int kiek);
+void readgen(vector<student> &A, int i, int num, int kiek);
 
 #endif

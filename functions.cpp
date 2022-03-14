@@ -138,9 +138,9 @@ void filegen(int i, int num, int kiek)
 
     std::stringstream buffer;
 
-    for(int i=0; i<num; i++)
+    for(int k=0; k<num; k++)
     {
-        buffer << "Vardas" << i+1 << " " << "Pavarde" << i+1;
+        buffer << "Vardas" << k+1 << " " << "Pavarde" << k+1;
 
         for(int j=0; j<kiek; j++)
         {
@@ -151,4 +151,26 @@ void filegen(int i, int num, int kiek)
     }
     out << buffer.str();
     out.close();
+}
+
+void readgen(vector<student> &A, int i, int num, int kiek)
+{
+    string ifname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
+    string eil, vardas, pavarde;
+    int temp;
+    std::ifstream in(ifname[i]);
+    student duom;
+    while(!in.eof())
+    {
+        in >> duom.vardas >> duom.pavarde;
+        for(int j=0; j<kiek-1; j++)
+        {
+            in >> temp;
+            duom.nd.push_back(temp);
+        }
+        in >> duom.egz;
+        A.push_back(duom);
+        duom.nd.clear();
+    }
+    in.close();
 }

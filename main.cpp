@@ -84,14 +84,25 @@ Ivestis:
             int num=100;
             int kiek=0;
             Pazkiek:
-            cout << "Po kiek pazymiu sugeneruoti kiekvienam studentui (1-15): ";
+            cout << "Po kiek pazymiu sugeneruoti kiekvienam studentui (2-16): ";
             cin >> kiek;
             if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Pazkiek;}
-            if(!((kiek>=1)&&(kiek<=15))) {cout << "Ivesta reiksme neatitinka intervalo nuo 1 iki 15...\n"; goto Pazkiek;}
+            if(!((kiek>=2)&&(kiek<=16))) {cout << "Ivesta reiksme neatitinka intervalo nuo 2 iki 16...\n"; goto Pazkiek;}
             for(int i=0; i<5; i++)
             {
                 num*=10;
+                auto start = std::chrono::high_resolution_clock::now();
                 filegen(i, num, kiek);
+                auto stop = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
+                cout << i+1 << " -ojo failo generavimas uztruko: " << duration.count() << " sekundziu" << endl;
+                start = std::chrono::high_resolution_clock::now();
+                readgen(A, i, num, kiek);
+                stop = std::chrono::high_resolution_clock::now();
+                duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
+                cout << i+1 << " -ojo failo nuskaitymas uztruko: " << duration.count() << " sekundziu" << endl;
+                cout << endl;
+                A.clear();
             }
         }
     }
