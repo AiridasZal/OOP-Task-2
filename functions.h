@@ -38,13 +38,13 @@ struct student
 void ivedimas(vector<student> &A, int i);
 void pazymiai(vector<student> &A, int i);
 void generuoti(vector<student> &A, int i);
-void rastiMediana(vector<student> &A, int i);
-void rastiVidurki(vector<student> &A, int i);
-void header();
-void spausdinimas(vector<student> &A, int i);
+void galutinisBalas(vector<student> &A, int kiek);
+void spausdinimas(vector<student> &A, string file);
 void rikiavimas(vector<student> &A, int &num);
 void skaitymas (vector<student> &A, int &num, std::ifstream& in);
 void filegen(int i, int num, int kiek);
+void GradeNumber(int &kiek);
 void readgen(vector<student> &A, int i, int num, int kiek);
+void rusiavimas(vector<student> &A, vector<student> &silpni, vector<student> &kieti);
 
 #endif
