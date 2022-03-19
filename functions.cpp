@@ -55,33 +55,37 @@ Genopt:
     A[i].egz=temp;
 }
 
-void rastiMediana(vector<student> &A, int i)
+void galutinisBalas(vector<student> &A, int kiek)
 {
-    sort(A[i].nd.begin(), A[i].nd.end());
-    if(A[i].sk%2!=0)
+    for(auto &v : A)
     {
-        A[i].med=(double)A[i].nd[A[i].sk/2];
+        long int i = &v - &A[0];
+        sort(A.at(i).nd.begin(), A.at(i).nd.end());
+        if(A.at(i).sk%2!=0)
+        {
+            A.at(i).med=(double)A.at(i).nd[A.at(i).sk/2];
+        }
+        else A.at(i).med=(double)(A.at(i).nd[(A.at(i).sk-1)/2] + A.at(i).nd[A.at(i).sk/2])/2.0;
+        A.at(i).galM=0.4*A.at(i).med+0.6*A.at(i).egz;
+
+        if(A.at(i).sum==0) for(int j=0; j<kiek-1; j++) A.at(i).sum+=A.at(i).nd[j];
+        A.at(i).vid=(double)A.at(i).sum/(double)A.at(i).sk;
+        A.at(i).galV=0.4*A.at(i).vid+0.6*A.at(i).egz;
     }
-    else A[i].med=(double)(A[i].nd[(A[i].sk-1)/2] + A[i].nd[A[i].sk/2])/2.0;
 }
 
-void rastiVidurki(vector<student> &A, int i)
+void spausdinimas(vector<student> &A, string file)
 {
-    A[i].vid=(double)A[i].sum/(double)A[i].sk;
-}
-
-void header()
-{
-    cout << "---------------------------------------------------------------------------------" << endl;
-    cout << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
-    cout << "---------------------------------------------------------------------------------" << endl;
-}
-
-void spausdinimas(vector<student> &A, int i)
-{
-    A[i].galV=0.4*A[i].vid+0.6*A[i].egz;
-    A[i].galM=0.4*A[i].med+0.6*A[i].egz;
-    cout << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+    std::ofstream out(file);
+    out << "---------------------------------------------------------------------------------" << endl;
+    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
+    out << "---------------------------------------------------------------------------------" << endl;
+    for(auto &v : A)
+    {
+    long int i = &v - &A[0];
+    out << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+    }
+    out.close();
 }
 
 void rikiavimas(vector<student> &A, int &num)
@@ -94,7 +98,7 @@ void rikiavimas(vector<student> &A, int &num)
 
 void skaitymas (vector<student> &A, int &num, std::ifstream& in)
 {
-    int j=0, egz=0;
+    int egz=0;
     string temp, eil, vardas, pavarde;
     while(std::getline(in, eil))
     {
@@ -103,23 +107,113 @@ void skaitymas (vector<student> &A, int &num, std::ifstream& in)
         line >> vardas >> pavarde;
         A[num].vardas=vardas;
         A[num].pavarde=pavarde;
-        num++;
-
         while(line >> temp)
         {
             int paz = std::stoi(temp);
             if(paz>=0 && paz<=10)
             {
-                A[j].nd.push_back(paz);
-                A[j].sum+=paz;
-                A[j].sk++;
+                A[num].nd.push_back(paz);
+                A[num].sum+=paz;
+                A[num].sk++;
             }
         }
     line.end;
-    A[j].egz=A[j].nd[A[j].sk-1];
-    A[j].nd[A[j].sk-1]=0;
-    A[j].sum-=A[j].egz;
-    A[j].sk--;
-    j++;
+    A[num].egz=A[num].nd[A[num].sk-1];
+    A[num].nd[A[num].sk-1]=0;
+    A[num].sum-=A[num].egz;
+    A[num].sk--;
+    num++;
+    }
+}
+
+void filegen(int i, int num, int kiek)
+{
+    string ofname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
+
+    int temp;
+
+    std::ofstream out(ofname[i]);
+    std::mt19937 mt(static_cast<long unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count()));
+    std::uniform_int_distribution <int> dist(1, 10);
+
+    std::stringstream buffer;
+
+    for(int k=0; k<num; k++)
+    {
+        buffer << "Vardas" << k+1 << " " << "Pavarde" << k+1;
+
+        for(int j=0; j<kiek; j++)
+        {
+            temp=dist(mt);
+            buffer << " " << temp;
+        }
+        buffer << endl;
+    }
+    out << buffer.str();
+    buffer.clear();
+    out.close();
+}
+
+void GradeNumber(int &kiek)
+{
+    std::ifstream fr("studentai1000.txt");
+    try
+    {
+        if(!fr.good())
+        {
+        throw "Failas nerastas...";
+        }
+    }
+    catch (const char* msg)
+    {
+        cout << msg <<endl;
+    }
+    string temp;
+    int sk;
+    fr >> temp >> temp;
+    while(fr >> sk)
+    {
+        kiek++;
+    }
+    fr.clear();
+    fr.seekg(0, fr.beg);
+    fr.close();
+}
+
+void readgen(vector<student> &A, int i, int num, int kiek)
+{
+    string ifname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
+    int temp;
+    std::ifstream in(ifname[i]);
+    student duom;
+    while(!in.eof())
+    {
+        in >> duom.vardas >> duom.pavarde;
+        duom.nd.reserve(kiek-1);
+        for(int j=0; j<kiek-1; j++)
+        {
+            in >> temp;
+            duom.nd.push_back(temp);
+            duom.sum+=temp;
+        }
+        in >> duom.egz;
+        duom.sk=kiek;
+        A.push_back(duom);
+        duom.sum=0;
+        duom.nd.clear();
+    }
+    in.close();
+}
+
+void rusiavimas(vector<student> &A, vector<student> &silpni, vector<student> &kieti)
+{
+    for(auto &v : A)
+    {
+        long int i = &v - &A[0];
+        if(A.at(i).galV < 5)
+        {
+            silpni.push_back(A.at(i));
+        }
+        else kieti.push_back(A.at(i));
     }
 }
