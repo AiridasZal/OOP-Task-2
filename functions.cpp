@@ -77,14 +77,17 @@ void galutinisBalas(vector<student> &A, int kiek)
 void spausdinimas(vector<student> &A, string file)
 {
     std::ofstream out(file);
-    out << "---------------------------------------------------------------------------------" << endl;
-    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
-    out << "---------------------------------------------------------------------------------" << endl;
+    std::stringstream buffer;
+    buffer << "---------------------------------------------------------------------------------" << endl;
+    buffer << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
+    buffer << "---------------------------------------------------------------------------------" << endl;
     for(auto &v : A)
     {
     long int i = &v - &A[0];
-    out << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+    buffer << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
     }
+    out << buffer.str();
+    buffer.clear();
     out.close();
 }
 
