@@ -59,18 +59,17 @@ void galutinisBalas(vector<student> &A, int kiek)
 {
     for(auto &v : A)
     {
-        long int i = &v - &A[0];
-        sort(A.at(i).nd.begin(), A.at(i).nd.end());
-        if(A.at(i).sk%2!=0)
+        sort(v.nd.begin(), v.nd.end());
+        if(v.sk%2!=0)
         {
-            A.at(i).med=(double)A.at(i).nd[A.at(i).sk/2];
+            v.med=(double)v.nd[v.sk/2];
         }
-        else A.at(i).med=(double)(A.at(i).nd[(A.at(i).sk-1)/2] + A.at(i).nd[A.at(i).sk/2])/2.0;
-        A.at(i).galM=0.4*A.at(i).med+0.6*A.at(i).egz;
+        else v.med=(double)(v.nd[(v.sk-1)/2] + v.nd[v.sk/2])/2.0;
+        v.galM=0.4*v.med+0.6*v.egz;
 
-        if(A.at(i).sum==0) for(int j=0; j<kiek-1; j++) A.at(i).sum+=A.at(i).nd[j];
-        A.at(i).vid=(double)A.at(i).sum/(double)A.at(i).sk;
-        A.at(i).galV=0.4*A.at(i).vid+0.6*A.at(i).egz;
+        if(v.sum==0) for(int j=0; j<kiek-1; j++) v.sum+=v.nd[j];
+        v.vid=(double)v.sum/(double)v.sk;
+        v.galV=0.4*v.vid+0.6*v.egz;
     }
 }
 
@@ -81,10 +80,9 @@ void spausdinimas(vector<student> &A, string file)
     buffer << "---------------------------------------------------------------------------------" << endl;
     buffer << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
     buffer << "---------------------------------------------------------------------------------" << endl;
-    for(auto &v : A)
+    for(const auto &v : A)
     {
-    long int i = &v - &A[0];
-    buffer << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
+    buffer << setw(20) << left << v.vardas << setw(20) << left << v.pavarde << setw(25) << left << fixed << setprecision(2) << v.galV << setw(5) << left << v.galM << endl;
     }
     out << buffer.str();
     buffer.clear();
@@ -210,13 +208,12 @@ void readgen(vector<student> &A, int i, int num, int kiek)
 
 void rusiavimas(vector<student> &A, vector<student> &silpni, vector<student> &kieti)
 {
-    for(auto &v : A)
+    for(const auto &v : A)
     {
-        long int i = &v - &A[0];
-        if(A.at(i).galV < 5)
+        if(v.galV < 5)
         {
-            silpni.push_back(A.at(i));
+            silpni.push_back(v);
         }
-        else kieti.push_back(A.at(i));
+        else kieti.push_back(v);
     }
 }
