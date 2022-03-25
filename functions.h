@@ -25,6 +25,7 @@ using std::setprecision;
 using std::vector;
 using std::list;
 using std::deque;
+using std::sort;
 
 struct student
 {

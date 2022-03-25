@@ -116,7 +116,7 @@ Ivestis:
                     auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
                     cout << i+1 << " -ojo failo nuskaitymas su vektoriumi uztruko: " << duration.count() << " sekundziu" << endl;
                     galutinisBalas(A, kiek);
-                    std::sort(A.begin(), A.end(), [](student& s1, student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
+                    sort(A.begin(), A.end(), [](student& s1, student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
                     start = std::chrono::high_resolution_clock::now();
                     rusiavimas(A, silpni, kieti);
                     stop = std::chrono::high_resolution_clock::now();
@@ -131,6 +131,30 @@ Ivestis:
                     kieti.clear();
                     cout << endl;
 
+                    
+                    //List
+
+                     start = std::chrono::high_resolution_clock::now();
+                    fullstart = start;
+                    readgen(StudList, i, num, kiek);
+                    stop = std::chrono::high_resolution_clock::now();
+                    duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
+                    cout << i+1 << " -ojo failo nuskaitymas su List'u uztruko: " << duration.count() << " sekundziu" << endl;
+                    galutinisBalas(StudList, kiek);
+                    StudList.sort([](const student& s1, const student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
+                    start = std::chrono::high_resolution_clock::now();
+                    rusiavimas(StudList, silpniList, kietiList);
+                    stop = std::chrono::high_resolution_clock::now();
+                    duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
+                    fulldur = std::chrono::duration_cast<std::chrono::duration<double>>(stop-fullstart);
+                    cout << i+1 << " -ojo failo isrusiavimas uztruko: " << duration.count() << " sekundziu" << endl;
+                    cout << i+1 << " -ojo failo nuskaitymas ir rusiavimas su List uztruko: " << fulldur.count() << " sekundziu" << endl;
+                    StudList.clear();
+                    spausdinimas(silpniList, "NuskriaustiL"+ std::to_string(num) + ".txt");
+                    spausdinimas(kietiList, "KietiL"+ std::to_string(num) + ".txt");
+                    silpniList.clear();
+                    kietiList.clear();
+                    cout << endl;
                     //Deque
 
                     start = std::chrono::high_resolution_clock::now();
@@ -140,7 +164,7 @@ Ivestis:
                     duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
                     cout << i+1 << " -ojo failo nuskaitymas su Deque'u uztruko: " << duration.count() << " sekundziu" << endl;
                     galutinisBalas(StudDeq, kiek);
-                    std::sort(StudDeq.begin(), StudDeq.end(), [](student& s1, student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
+                    sort(StudDeq.begin(), StudDeq.end(), [](student& s1, student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
                     start = std::chrono::high_resolution_clock::now();
                     rusiavimas(StudDeq, silpniDeq, kietiDeq);
                     stop = std::chrono::high_resolution_clock::now();
