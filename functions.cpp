@@ -55,39 +55,6 @@ Genopt:
     A[i].egz=temp;
 }
 
-void galutinisBalas(vector<student> &A, int kiek)
-{
-    for(auto &v : A)
-    {
-        long int i = &v - &A[0];
-        sort(A.at(i).nd.begin(), A.at(i).nd.end());
-        if(A.at(i).sk%2!=0)
-        {
-            A.at(i).med=(double)A.at(i).nd[A.at(i).sk/2];
-        }
-        else A.at(i).med=(double)(A.at(i).nd[(A.at(i).sk-1)/2] + A.at(i).nd[A.at(i).sk/2])/2.0;
-        A.at(i).galM=0.4*A.at(i).med+0.6*A.at(i).egz;
-
-        if(A.at(i).sum==0) for(int j=0; j<kiek-1; j++) A.at(i).sum+=A.at(i).nd[j];
-        A.at(i).vid=(double)A.at(i).sum/(double)A.at(i).sk;
-        A.at(i).galV=0.4*A.at(i).vid+0.6*A.at(i).egz;
-    }
-}
-
-void spausdinimas(vector<student> &A, string file)
-{
-    std::ofstream out(file);
-    out << "---------------------------------------------------------------------------------" << endl;
-    out << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
-    out << "---------------------------------------------------------------------------------" << endl;
-    for(auto &v : A)
-    {
-    long int i = &v - &A[0];
-    out << setw(20) << left << A[i].vardas << setw(20) << left << A[i].pavarde << setw(25) << left << fixed << setprecision(2) << A[i].galV << setw(5) << left << A[i].galM << endl;
-    }
-    out.close();
-}
-
 void rikiavimas(vector<student> &A, int &num)
 {
     for(int i=0; i<num-1; i++)
@@ -180,40 +147,3 @@ void GradeNumber(int &kiek)
     fr.close();
 }
 
-void readgen(vector<student> &A, int i, int num, int kiek)
-{
-    string ifname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
-    int temp;
-    std::ifstream in(ifname[i]);
-    student duom;
-    while(!in.eof())
-    {
-        in >> duom.vardas >> duom.pavarde;
-        duom.nd.reserve(kiek-1);
-        for(int j=0; j<kiek-1; j++)
-        {
-            in >> temp;
-            duom.nd.push_back(temp);
-            duom.sum+=temp;
-        }
-        in >> duom.egz;
-        duom.sk=kiek;
-        A.push_back(duom);
-        duom.sum=0;
-        duom.nd.clear();
-    }
-    in.close();
-}
-
-void rusiavimas(vector<student> &A, vector<student> &silpni, vector<student> &kieti)
-{
-    for(auto &v : A)
-    {
-        long int i = &v - &A[0];
-        if(A.at(i).galV < 5)
-        {
-            silpni.push_back(A.at(i));
-        }
-        else kieti.push_back(A.at(i));
-    }
-}
