@@ -48,7 +48,7 @@ arba
 
 ## V0.5 Atnaujinimai
 
-1. Implementuoti skaičiavimai su dviemis papildomais STL konteineriais: List ir Deque.
+1. Implementuoti skaičiavimai su dviem papildomais STL konteineriais: List ir Deque.
 2. Atlikta spartos analizė siekiant išanalizuoti skirtingų tipų konteinerių pranašumus.
 
 Kompiuterio specifikacijos: Intel Core i7-6700HQ CPU @ 2.60GHz, 16 GB RAM, SSD 970 EVO Plus
