@@ -98,3 +98,14 @@ Kompiuterio specifikacijos: Intel Core i7-6700HQ CPU @ 2.60GHz, 16 GB RAM, SSD 9
 |             Vector |     31.8    |      25     |
 |               List |      32     |     23.5    |
 |              Deque |      28     |     19.5    |
+
+**Mokinių skaidymo funkcijos spartinimo bandymas pritaikant algoritmą std::remove_copy_if**
+
+| Size\Method | Strategy #2 | #2 + remove_copy_if |
+|------------:|:-----------:|---------------------|
+|        1000 | 0.0001292   | 0.0000613           |
+|       10000 | 0.0006771   | 0.0007114           |
+|      100000 | 0.0113217   | 0.0086322           |
+|     1000000 | 0.140314    | 0.0896481           |
+|    10000000 | 1.6041      | 1.05716             |
+

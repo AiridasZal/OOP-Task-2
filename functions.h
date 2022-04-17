@@ -129,6 +129,7 @@ void rusiavimas2(Container &A, Container &kieti)
             A.pop_back();
         }
     }
+    std::remove_copy_if(A.begin(), A.end(), std::back_inserter(kieti), [](const student &v){return v.galV >= 5;});
 }
 
 template<typename Container>
