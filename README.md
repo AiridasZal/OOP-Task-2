@@ -1,4 +1,13 @@
-# OOP Program
+# Studentų pasiekimų rezultatų skaičiuoklė
+
+## Programos įdiegimas UNIX kompiuteryje
+
+- `git clone https://github.com/AiridasZal/OOP-Task-1`
+- `cd OOP-Task-1`
+- `make main`
+- `./main`
+
+
 ## V0.1 Galimybės:
 1. Programa nuskaito vartotojo įvedamus duomenis (struktūros elementus):
  
@@ -65,3 +74,38 @@ Kompiuterio specifikacijos: Intel Core i7-6700HQ CPU @ 2.60GHz, 16 GB RAM, SSD 9
 |      Vector Bendrai | 0.0047167 | 0.0287869 | 0.246535  | 2.62027  | 28.9934  |
 |        List Bendrai | 0.0029372 | 0.0288093 | 0.278628  | 3.02584  | 36.698   |
 |       Deque Bendrai | 0.0043097 | 0.0290568 | 0.262061  | 2.79244  | 31.6902  |
+
+## V1.0 Atnaujinimai
+
+1. Įgyvendintas patobulintas mokinių skaidymas.
+
+**Mokinių skirstymo greičio (spartos) analizė su 3 skirtingais konteineriais ir 2 skirtingomis strategijomis**
+
+| Container\Size |    1000   |   10000   |   100000  |  1000000 | 10000000 |
+|---------------:|:---------:|:---------:|:---------:|:--------:|:--------:|
+|  Vector 1 str. | 0.0002082 | 0.00157   | 0.0165726 | 0.206244 | 2.18961  |
+|  Vector 2 str. | 0.0001094 | 0.0005674 | 0.0112997 | 0.141784 | 1.4222   |
+|    List 1 str. | 0.000182  | 0.0014088 | 0.0226309 | 0.245209 | 2.76143  |
+|    List 2 str. | 0.0000759 | 0.0005899 | 0.0116755 | 0.136401 | 1.44716  |
+|   Deque 1 str. | 0.0001017 | 0.0012263 | 0.016823  | 0.183298 | 2.10436  |
+|   Deque 2 str. | 0.0000675 | 0.0006402 | 0.010271  | 0.121397 | 1.44716  |
+
+
+**Programos RAM panaudojimas išreikštas % visų RAM (16 GB) atliekant skaičiavimus su 10M failais**
+
+| Container\Strategy | Strategy #1 | Strategy #2 |
+|-------------------:|:-----------:|-------------|
+|             Vector |     31.8    |      25     |
+|               List |      32     |     23.5    |
+|              Deque |      28     |     19.5    |
+
+**Mokinių skaidymo funkcijos spartinimo bandymas pritaikant algoritmą std::remove_copy_if**
+
+| Size\Method | Strategy #2 | #2 + remove_copy_if |
+|------------:|:-----------:|---------------------|
+|        1000 | 0.0001292   | 0.0000613           |
+|       10000 | 0.0006771   | 0.0007114           |
+|      100000 | 0.0113217   | 0.0086322           |
+|     1000000 | 0.140314    | 0.0896481           |
+|    10000000 | 1.6041      | 1.05716             |
+
