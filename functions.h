@@ -118,4 +118,30 @@ void rusiavimas(Container &A, Container &silpni, Container &kieti)
     }
 }
 
+template<typename Container>
+void rusiavimas2(Container &A, Container &kieti)
+{
+    for (int i=A.size()-1; i>=0; i--)
+    {
+        if (A.at(i).galV >= 5) 
+        {
+            kieti.push_back(A.at(i));
+            A.pop_back();
+        }
+    }
+}
+
+template<typename Container>
+void rusiavimas3(Container &A, Container &kieti)
+{
+    for (int i=0; i<A.size()-1; i++)
+    {
+        if (A.back().galV >= 5)
+        {
+            kieti.push_back(A.back());
+            A.pop_back();
+        }
+    }
+}
+
 #endif
