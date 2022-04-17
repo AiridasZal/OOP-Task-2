@@ -1,4 +1,13 @@
-# OOP Program
+# Studentų pasiekimų rezultatų skaičiuoklė
+
+## Programos įdiegimas UNIX kompiuteryje
+
+- `git clone https://github.com/AiridasZal/OOP-Task-1`
+- `cd OOP-Task-1`
+- `make main`
+- `./main`
+
+
 ## V0.1 Galimybės:
 1. Programa nuskaito vartotojo įvedamus duomenis (struktūros elementus):
  
