@@ -1,11 +1,13 @@
-#include "Studentas.h"
+#include "studentas.h"
 
 Studentas::Studentas(){
-	int egz = 0;
+	string vardas="";
+	string pavarde="";
+	double egz = 0.0;
 	double vid = 0.0;
 	double med = 0.0;
-	double galmed = 0.0;
-	double galvid = 0.0;
+	double galM = 0.0;
+	double galV = 0.0;
 }
 
 Studentas::~Studentas(){

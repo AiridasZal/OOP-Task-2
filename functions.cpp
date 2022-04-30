@@ -1,96 +1,142 @@
 #include "functions.h"
 
-void ivedimas(vector<student> &A, int i)
+void DuomenuIvedimas(vector<Studentas> &A, int &num)
 {
-    cout << "Iveskite studento varda: "; cin >> A[i].vardas;
-    cout << "Iveskite studento pavarde: "; cin >> A[i].pavarde;
-}
+    string vardas, pavarde;
+    int egz, sk;
+    vector<double> ndpaz;
+    Studentas duom;
+    int choice, gen, kiek, temp;
+    Kiekis:
+    cout << "Kiek bus mokiniu?" << endl;
+    cin >> choice;
+    num=choice;
+    if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Kiekis; }
+    if(!((choice>=0)&&(choice<=150))) goto Kiekis;
 
-void pazymiai(vector<student> &A, int i)
-{
-    int temp;
-    while(temp!=-1)
+    for(int i=0; i<choice; i++)
     {
-    paznd:
-        cout << "Iveskite " << A[i].sk+1 <<  " -a(-i) pazymi (arba -1 jei norite stabdyti ivedima): ";
-        cin >> temp;
-        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto paznd; }
-        if(!((temp>=-1)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10\n"; goto paznd;}
-        if(temp==-1) break;
-            else{
-                A[i].nd.push_back(temp);
-                A[i].sk++;
-                A[i].sum+=temp;
+        cout << "Iveskite studento varda:\n";
+        cin >> vardas;
+        duom.setName(vardas);
+        cout << "Iveskite studento pavarde:\n";
+        cin >> pavarde;
+        duom.setLastName(pavarde);
+        Generacija:
+        cout << "Pazymius norite suvesti ranka ar sugeneruoti atsitiktinai (0 - ranka, 1 - atsitiktinai)\n";
+        cin >> gen;
+        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Generacija; }
+        if(!((gen>=0)&&(gen<=1))) goto Generacija;
+
+        if(choice==0)
+        {
+            sk=1;
+            while(temp!=-1)
+            {
+            paznd:
+                cout << "Iveskite " << sk <<  " -a(-i) pazymi (arba -1 jei norite stabdyti ivedima): ";
+                cin >> temp;
+                if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto paznd; }
+                if(!((temp>=-1)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10\n"; goto paznd;}
+                if(temp==-1) break;
+                    else{
+                        ndpaz.push_back(temp);
+                        sk++;
+                    }
             }
+            duom.setHW(ndpaz);
+            ndpaz.clear();
+            egzp:
+                cout << "Veskite egzamino iverti (nuo 0 iki 10): ";
+                cin >> temp;
+                if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto egzp; }
+                if(!((temp>=0)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10\n"; goto egzp;}
+                else duom.setExam(temp);
+        }
+
+        if(choice==1)
+        {
+            Genopt:
+                cout << "Kiek pazymiu sugeneruoti mokiniui? (Nuo 0 iki 500): ";
+                cin >> kiek;
+                if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Genopt; }
+                if(!((kiek>=0)&&(kiek<=500))) {cout << "Reiksme turi buti tarp 0 ir 500\n"; goto Genopt;}
+                srand((unsigned) time(NULL));
+                cout << "Sugeneruoti pazymiai:\n";
+                for(int j=0; j<kiek; j++)
+                {
+                    temp=rand()%11;
+                    ndpaz.push_back(temp);
+                    cout << temp << " ";
+                }
+                cout << endl;
+                temp=rand()%11;
+                duom.setExam(temp);
+        }
+        duom.setHW(ndpaz);
+        A.push_back(duom);
+        ndpaz.clear();
+        
     }
-    egzp:
-        cout << "Veskite egzamino iverti (nuo 0 iki 10): ";
-        cin >> temp;
-        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto egzp; }
-        if(!((temp>=0)&&(temp<=10))) {cout << "Reiksme turi buti tarp 0 ir 10\n"; goto egzp;}
-        else A[i].egz=temp;
+    
 }
 
-void generuoti(vector<student> &A, int i)
+void spausdinimas(vector<Studentas> &A, string file)
 {
-    int kiek;
-    int temp;
-Genopt:
-    cout << "Kiek pazymiu sugeneruoti mokiniui? (Nuo 0 iki 500): ";
-    cin >> kiek;
-    if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Genopt; }
-    if(!((kiek>=0)&&(kiek<=500))) {cout << "Reiksme turi buti tarp 0 ir 500\n"; goto Genopt;}
-    srand((unsigned) time(NULL));
-    A[i].sk=kiek;
-    cout << "Sugeneruoti pazymiai:\n";
-    for(int j=0; j<kiek; j++)
+    std::ofstream out(file);
+    std::stringstream buffer;
+    buffer << "---------------------------------------------------------------------------------" << endl;
+    buffer << setw(20) << left << "Vardas" << setw(20) << left << "Pavarde" << setw(25) << left << "Galutinis (Vid.)" << setw(5) << left << "Galutinis (Med.)" << endl;
+    buffer << "---------------------------------------------------------------------------------" << endl;
+    for(const auto &v : A)
     {
-        temp=rand()%11;
-        A[i].nd.push_back(temp);
-        A[i].sum+=temp;
-        cout << temp << " ";
+    buffer << setw(20) << left << v.getName() << setw(20) << left << v.getLastName() << setw(25) << left << fixed << setprecision(2) << v.getFAverage() << setw(5) << left << v.getFMedian() << endl;
     }
-    cout << endl;
-    temp=rand()%11;
-    A[i].egz=temp;
+    out << buffer.str();
+    buffer.clear();
+    out.close();
 }
 
-void rikiavimas(vector<student> &A, int &num)
+void rikiavimas(vector<Studentas> &A, int &num)
 {
     for(int i=0; i<num-1; i++)
         for(int j=i+1; j<num; j++)
-        if(A[i].pavarde> A[j].pavarde)
+        if(A[i].getLastName()> A[j].getLastName())
             std::swap(A[i], A[j]);
 }
 
-void skaitymas (vector<student> &A, int &num, std::ifstream& in)
+void skaitymas(vector<Studentas> &A, int &num, std::ifstream& in)
 {
-    int egz=0;
-    string temp, eil, vardas, pavarde;
-    while(std::getline(in, eil))
+    string stulp, vardas, pavarde;
+    int kiek, temp, egzpaz;
+    vector<double> ndpaz;
+    Studentas duom;
+    
+    in >> stulp >> stulp >> stulp;
+    while(stulp[0]=='N')
     {
-        A.push_back(student());
-        std::istringstream line(eil);
-        line >> vardas >> pavarde;
-        A[num].vardas=vardas;
-        A[num].pavarde=pavarde;
-        while(line >> temp)
-        {
-            int paz = std::stoi(temp);
-            if(paz>=0 && paz<=10)
-            {
-                A[num].nd.push_back(paz);
-                A[num].sum+=paz;
-                A[num].sk++;
-            }
-        }
-    line.end;
-    A[num].egz=A[num].nd[A[num].sk-1];
-    A[num].nd[A[num].sk-1]=0;
-    A[num].sum-=A[num].egz;
-    A[num].sk--;
-    num++;
+        kiek++;
+        in >> stulp;
     }
+
+    while(!in.eof())
+    {
+        in >> vardas >> pavarde;
+        duom.setName(vardas);
+        duom.setLastName(pavarde);
+
+        for(int i=0; i<kiek; i++)
+        {
+            in >> temp;
+        }
+        ndpaz.push_back(temp);
+        in >> egzpaz;
+        duom.setExam(egzpaz);
+        duom.setHW(ndpaz);
+        A.push_back(duom);
+        ndpaz.clear();
+    }
+    in.close();
 }
 
 void filegen(int i, int num, int kiek)
@@ -147,3 +193,37 @@ void GradeNumber(int &kiek)
     fr.close();
 }
 
+void readgen(vector<Studentas> &A, int i, int num, int kiek)
+{
+    string ifname[5]={"studentai1000.txt", "studentai10000.txt", "studentai100000.txt",  "studentai1000000.txt", "studentai10000000.txt"};
+    int temp;
+    std::ifstream in(ifname[i]);
+    Studentas duom;
+    string vardas, pavarde;
+    int egzpaz;
+    vector<double> ndpaz;
+    while(!in.eof())
+    {
+        in >> vardas >> pavarde;
+        duom.setName(vardas);
+        duom.setLastName(pavarde);
+        for(int j=0; j<kiek-1; j++)
+        {
+            in >> temp;
+            ndpaz.push_back(temp);
+        }
+        in >> egzpaz;
+        duom.setExam(egzpaz);
+        duom.setHW(ndpaz);
+        A.push_back(duom);
+        ndpaz.clear();
+    }
+    in.close();
+}
+
+void galutinisBalas(vector<Studentas> &A)
+{
+	for(auto &v : A) {
+		v.Galutinis();
+	}
+}

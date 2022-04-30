@@ -2,7 +2,7 @@
 
 int main()
 {
-    vector<student> A, kieti;
+    vector<Studentas> A, kieti;
 
     int num=0;
     int inp, gen,asmuo;
@@ -12,30 +12,8 @@ Ivestis:
     if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Ivestis; }
     if(inp==0)
     {
-        Generavimas:
-        A.push_back(student());
-        ivedimas(A, num);
-        cout << "Pazymius ivesti ranka - (0). Pazymius generuoti atsitiktinai - (1): ";
-        cin >> gen;
-        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Generavimas; }
-        if(gen==0)
-        {
-            pazymiai(A, num);
-        }
-        if(gen==1)
-        {
-            generuoti(A, num);
-        }
-
-        if(!((gen>=0)&&(gen<=1))) goto Generavimas;
-        num++;
-        Pridejimas:
-        cout << "Jei norite prideti dar viena asmeni iveskite 1. Jei norite testi, iveskite 0: ";
-        cin >> asmuo;
-        if(cin.fail()){ cin.clear(); cin.ignore(); cout << "Negalima reiksme, bandykite dar karta\n"; goto Pridejimas; }
-        if(asmuo==1) goto Generavimas;
-        if(!((asmuo>=0)&&(asmuo<=1))) goto Pridejimas;
-        galutinisBalas(A, num);
+        DuomenuIvedimas(A, num);
+        galutinisBalas(A);
         rikiavimas(A, num);
         spausdinimas(A, "Rezultatai.txt");
     }
@@ -64,7 +42,7 @@ Ivestis:
             }
             in.ignore(1024, '\n');
             skaitymas(A, num, in);
-            galutinisBalas(A, num);
+            galutinisBalas(A);
             rikiavimas(A, num);
             spausdinimas(A, "Rezultatai.txt");
             in.close();
@@ -113,8 +91,8 @@ Ivestis:
                     auto stop = std::chrono::high_resolution_clock::now();
                     auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(stop-start);
                     cout << i+1 << " -ojo failo nuskaitymas su vektoriumi uztruko: " << duration.count() << " sekundziu" << endl;
-                    galutinisBalas(A, kiek);
-                    sort(A.begin(), A.end(), [](student& s1, student& s2) -> bool {if(s1.galV == s2.galV) return s1.pavarde < s2.pavarde; else return s1.galV < s2.galV;});
+                    galutinisBalas(A);
+                    sort(A.begin(), A.end(), [](Studentas& s1, Studentas& s2) -> bool {if(s1.getFAverage() == s2.getFAverage()) return s1.getLastName() < s2.getLastName(); else return s1.getFAverage() < s2.getFAverage();});
                     start = std::chrono::high_resolution_clock::now();
                     rusiavimas(A, kieti);
                     stop = std::chrono::high_resolution_clock::now();
