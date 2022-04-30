@@ -1,7 +1,9 @@
-main: functions.o
-	g++ -O3 -o main main.cpp functions.o
+main: functions.o studentas.o
+	g++ -o main main.cpp functions.o studentas.o
 functions:
-	g++ -O3 -c functions.cpp
+	g++  -c functions.cpp
+studentas:
+	g++ -c studentas.cpp
 clean:
 	del *.o main.exe studentai*.txt rezultatai.txt
 debug:

@@ -7,6 +7,26 @@
 - `make main`
 - `./main`
 
+## V1.1 Atnaujinimai
+
+1. Atsisakyta lėtesnių mokinių skirstymo strategijų.
+2. Struktūra pakeista į klasę.
+3. Kodas pritaikytas klasei.
+
+Struktūros ir klasės spartos analizė
+
+| Dydis\Konteineris | Structure | Class   |
+|-------------------|-----------|---------|
+| 100000            | 0.322111  | 0.47478 |
+| 1000000           | 3.45288   | 5.22309 |
+
+Klasės spartos analizės naudojant skirtingus optimizavimo flag'us
+
+| Dydis\Konteineris | -O1      | -O2      | -O3      |
+|-------------------|----------|----------|----------|
+| 100000            | 0.297189 | 0.285169 | 0.279394 |
+| 1000000           | 3.18945  | 3.17024  | 3.18166  |
+
 ## V1.0 Atnaujinimai
 
 1. Įgyvendintas patobulintas mokinių skaidymas.
