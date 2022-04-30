@@ -1,31 +1,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <algorithm>
-#include <vector>
-#include <list>
-#include <deque>
-#include <ctime>
-#include <fstream>
-#include <chrono>
-#include <sstream>
-#include <random>
-
-using std::cout;
-using std::cin;
-using std::string;
-using std::endl;
-using std::left;
-using std::fixed;
-using std::setw;
-using std::setprecision;
-using std::vector;
-using std::list;
-using std::deque;
-using std::sort;
+#include "studentas.h"
 
 struct student
 {
@@ -105,44 +80,11 @@ void readgen(Container &A, int i, int num, int kiek)
     }
     in.close();
 }
-template<typename Container>
-void rusiavimas(Container &A, Container &silpni, Container &kieti)
-{
-    for(const auto &v : A)
-    {
-        if(v.galV < 5)
-        {
-            silpni.push_back(v);
-        }
-        else kieti.push_back(v);
-    }
-}
 
 template<typename Container>
-void rusiavimas2(Container &A, Container &kieti)
+void rusiavimas(Container &A, Container &kieti)
 {
-    for (int i=A.size()-1; i>=0; i--)
-    {
-        if (A.at(i).galV >= 5) 
-        {
-            kieti.push_back(A.at(i));
-            A.pop_back();
-        }
-    }
     std::remove_copy_if(A.begin(), A.end(), std::back_inserter(kieti), [](const student &v){return v.galV >= 5;});
-}
-
-template<typename Container>
-void rusiavimas3(Container &A, Container &kieti)
-{
-    for (int i=0; i<A.size()-1; i++)
-    {
-        if (A.back().galV >= 5)
-        {
-            kieti.push_back(A.back());
-            A.pop_back();
-        }
-    }
 }
 
 #endif
