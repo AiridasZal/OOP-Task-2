@@ -10,8 +10,18 @@ Studentas::Studentas(){
 	double galV = 0.0;
 }
 
-Studentas::~Studentas(){
+Studentas::Studentas(const Studentas &old){
+	vardas = old.vardas;
+	pavarde = old.pavarde;
+	egz = old.egz;
+	vid = old.vid;
+	med = old.med;
+	galM = old.galM;
+	galV = old.galV;
+}
 
+Studentas::~Studentas(){
+	nd.clear();
 }
 
 void Studentas::setName(string v) {
@@ -36,6 +46,10 @@ string Studentas::getName() const {
 
 string Studentas::getLastName() const {
 	return pavarde;
+}
+
+double Studentas::getExam() const {
+	return egz;
 }
 
 double Studentas::getFAverage() const {
@@ -63,4 +77,29 @@ void Studentas::Galutinis() {
 	}
 	vid=vid/nd.size();
 	galV=0.4*vid+0.6*egz;
+}
+
+Studentas& Studentas::operator=(const Studentas& other) {
+	if (&other == this) return *this;
+	vardas = other.getName();
+	pavarde = other.getLastName();
+	galM = other.getFMedian();
+	galV = other.getFAverage();
+	return *this;
+}
+
+bool Studentas::operator==(const Studentas& other) {
+	if (vardas == other.getName() &&
+		pavarde == other.getLastName() &&
+		galM == other.getFMedian() &&
+		galV == other.getFAverage()) 
+	{return true;}
+} 
+
+bool Studentas::operator!=(const Studentas& other) {
+	if (vardas != other.getName() ||
+		pavarde != other.getLastName() ||
+		galM != other.getFMedian() ||
+		galV != other.getFAverage())
+	{return true;}
 }

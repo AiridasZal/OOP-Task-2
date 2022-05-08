@@ -37,6 +37,7 @@ private:
   double galM;
 public:
   Studentas();
+  Studentas(const Studentas&);
   ~Studentas();
   void setName(string);
   void setLastName(string);
@@ -44,7 +45,12 @@ public:
   void setExam(double);
   string getName() const;
   string getLastName() const;
+  double getExam() const;
   double getFMedian() const;
   double getFAverage() const;
   void Galutinis();
+
+  Studentas& operator=(const Studentas& other);
+  bool operator==(const Studentas& other);
+  bool operator!=(const Studentas& other);
 };
