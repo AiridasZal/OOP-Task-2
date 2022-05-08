@@ -9,7 +9,7 @@
 
 ## V1.2 Atnaujinimai
 
-1. **Rule of *Three*** įgyvendinimas.
+1. ***Rule of Three*** įgyvendinimas.
 2. Papildomų operatorių (palyginimo ir kopijavimo) pridėjimas.
 
 ## V1.1 Atnaujinimai
