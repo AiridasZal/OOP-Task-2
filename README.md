@@ -7,6 +7,10 @@
 - `make main`
 - `./main`
 
+## V1.5 Atnaujinimai
+1. Sukurta Base klasė (zmogus) ir Derived klasė (Studentas).
+2. Base klasėje aprašyta (zmogus) vardas ir pavardė, pasiekiama tik iš išvestinių klasių.
+
 ## V1.2 Atnaujinimai
 
 1. ***Rule of Three*** įgyvendinimas.
