@@ -1,8 +1,14 @@
 #include "studentas.h"
 
+zmogus::zmogus(){
+}
+
+zmogus::zmogus(string v, string pav) {
+}
+
+zmogus::~zmogus() {}
+
 Studentas::Studentas(){
-	string vardas="";
-	string pavarde="";
 	double egz = 0.0;
 	double vid = 0.0;
 	double med = 0.0;
@@ -94,6 +100,7 @@ bool Studentas::operator==(const Studentas& other) {
 		galM == other.getFMedian() &&
 		galV == other.getFAverage()) 
 	{return true;}
+	else return false;
 } 
 
 bool Studentas::operator!=(const Studentas& other) {
@@ -102,4 +109,5 @@ bool Studentas::operator!=(const Studentas& other) {
 		galM != other.getFMedian() ||
 		galV != other.getFAverage())
 	{return true;}
+	else return false;
 }
