@@ -4,6 +4,7 @@ Studentas::Studentas(){
 	string vardas="";
 	string pavarde="";
 	double egz = 0.0;
+	vector<double> nd;
 	double vid = 0.0;
 	double med = 0.0;
 	double galM = 0.0;
@@ -13,6 +14,7 @@ Studentas::Studentas(){
 Studentas::Studentas(const Studentas &old){
 	vardas = old.vardas;
 	pavarde = old.pavarde;
+	nd = old.nd;
 	egz = old.egz;
 	vid = old.vid;
 	med = old.med;
@@ -94,6 +96,7 @@ bool Studentas::operator==(const Studentas& other) {
 		galM == other.getFMedian() &&
 		galV == other.getFAverage()) 
 	{return true;}
+	else return false;
 } 
 
 bool Studentas::operator!=(const Studentas& other) {
@@ -102,4 +105,5 @@ bool Studentas::operator!=(const Studentas& other) {
 		galM != other.getFMedian() ||
 		galV != other.getFAverage())
 	{return true;}
+	else return false;
 }
