@@ -7,6 +7,10 @@
 - `make main`
 - `./main`
 
+## V1.2.1 Atnaujinimai
+
+1. Atsisakyta std::remove_copy_if rūšiavimo dėl netinkamo veikimo. (Kopijavo, tačiau nešalino)
+
 ## V1.2 Atnaujinimai
 
 1. ***Rule of Three*** įgyvendinimas.
