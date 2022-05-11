@@ -10,6 +10,7 @@ zmogus::~zmogus() {}
 
 Studentas::Studentas(){
 	double egz = 0.0;
+	vector<double> nd;
 	double vid = 0.0;
 	double med = 0.0;
 	double galM = 0.0;
@@ -19,6 +20,7 @@ Studentas::Studentas(){
 Studentas::Studentas(const Studentas &old){
 	vardas = old.vardas;
 	pavarde = old.pavarde;
+	nd = old.nd;
 	egz = old.egz;
 	vid = old.vid;
 	med = old.med;

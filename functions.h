@@ -12,5 +12,12 @@ void readgen(vector<Studentas> &A, int i, int num, int kiek);
 template<typename Container>
 void rusiavimas(Container &A, Container &kieti)
 {
-    std::remove_copy_if(A.begin(), A.end(), std::back_inserter(kieti), [](const Studentas &v){return v.getFAverage() >= 5;});
+    for(const auto x: A)
+    {
+        if(x.getFAverage()>=5.00)
+        {
+            kieti.push_back(x);
+        }
+    }
+    A.erase(remove_if(A.begin(), A.end(), [](Studentas x){return x.getFAverage()>=5.00;}), A.end());
 }
