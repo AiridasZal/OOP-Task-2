@@ -1,14 +1,8 @@
 #include "studentas.h"
 
-zmogus::zmogus(){
-}
-
-zmogus::zmogus(string v, string pav) {
-}
-
-zmogus::~zmogus() {}
-
 Studentas::Studentas(){
+	string vardas="";
+	string pavarde="";
 	double egz = 0.0;
 	vector<double> nd;
 	double vid = 0.0;

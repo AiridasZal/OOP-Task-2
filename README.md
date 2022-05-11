@@ -7,10 +7,6 @@
 - `make main`
 - `./main`
 
-## V1.5 Atnaujinimai
-1. Sukurta Base klasė (zmogus) ir Derived klasė (Studentas).
-2. Base klasėje aprašyta (zmogus) vardas ir pavardė, pasiekiama tik iš išvestinių klasių.
-
 ## V1.2.1 Atnaujinimai
 
 1. Atsisakyta std::remove_copy_if rūšiavimo dėl netinkamo veikimo. (Kopijavo, tačiau nešalino)
