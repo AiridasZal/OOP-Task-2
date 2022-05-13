@@ -9,6 +9,7 @@
 
 ## V2.0 Atnaujinimai
 1. Sukurta keletas Unit Testų, naudojant Catch2 framework'ą.
+2. Pridėta Doxygen dokumentacija.
 
 ## V1.5 Atnaujinimai
 1. Sukurta Base klasė (zmogus) ir Derived klasė (Studentas).
