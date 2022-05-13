@@ -7,6 +7,9 @@
 - `make main`
 - `./main`
 
+## V2.0 Atnaujinimai
+1. Sukurta keletas Unit Testų, naudojant Catch2 framework'ą.
+
 ## V1.5 Atnaujinimai
 1. Sukurta Base klasė (zmogus) ir Derived klasė (Studentas).
 2. Base klasėje aprašyta (zmogus) vardas ir pavardė, pasiekiama tik iš išvestinių klasių.

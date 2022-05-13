@@ -21,3 +21,8 @@ void rusiavimas(Container &A, Container &kieti)
     }
     A.erase(remove_if(A.begin(), A.end(), [](Studentas x){return x.getFAverage()>=5.00;}), A.end());
 }
+
+// Testavimo funkcijos
+
+double GalutinisV(double vid, double egz);
+bool Islaikyta(double balas);

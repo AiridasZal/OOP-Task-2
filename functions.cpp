@@ -227,3 +227,18 @@ void galutinisBalas(vector<Studentas> &A)
 		v.Galutinis();
 	}
 }
+
+// Testavimo funkcijos
+
+double GalutinisV(double vid, double egz)
+{
+    double galV=0.4*vid+0.6*egz;
+    return galV;
+}
+
+bool Islaikyta(double balas)
+{
+    if(balas>=5)
+        return true;
+    else return false;
+}
