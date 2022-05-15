@@ -2,14 +2,15 @@
 
 ## Programos įdiegimas UNIX kompiuteryje
 
-- `git clone https://github.com/AiridasZal/OOP-Task-1`
-- `cd OOP-Task-1`
+- `git clone https://github.com/AiridasZal/OOP-Task-2`
+- `cd OOP-Task-2`
 - `make main`
 - `./main`
 
 ## V2.0 Atnaujinimai
 1. Sukurta keletas Unit Testų, naudojant Catch2 framework'ą.
 2. Pridėta Doxygen dokumentacija.
+3. Pridėtas Setup.msi
 
 ## V1.5 Atnaujinimai
 1. Sukurta Base klasė (zmogus) ir Derived klasė (Studentas).

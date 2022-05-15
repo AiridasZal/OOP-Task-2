@@ -108,7 +108,7 @@ void rikiavimas(vector<Studentas> &A, int &num)
 void skaitymas(vector<Studentas> &A, int &num, std::ifstream& in)
 {
     string stulp, vardas, pavarde;
-    int kiek, temp, egzpaz;
+    int kiek=0, temp, egzpaz;
     vector<double> ndpaz;
     Studentas duom;
     
